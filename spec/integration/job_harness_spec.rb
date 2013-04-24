@@ -3,15 +3,18 @@ describe JenkinsTestHarness::JobHarness do
   include JenkinsTestHarness::Api::Helpers
   let(:job_name) { "Test Job" }
   before(:all) do
-    # download jenkins server if necessary
     # run jenkins server
     # wait for it to finish running
+    @server = JenkinsTestHarness::Server.new(port: 3333)
+    @server.start
+
     config = {
       "server_ip"   => "localhost",
       "server_port" => "8080",
       "debug"       => "true"
     }
     JenkinsTestHarness::Api.connect(config)
+
     # upload job to test "Test Job"
   end
   after(:all) do
