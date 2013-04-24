@@ -5,15 +5,18 @@ describe JenkinsTestHarness::JobBuild do
   end
   subject { JenkinsTestHarness::JobBuild.new("Test Job Name", 10) }
 
-  it "has status blue => success" do
-    status_color = { color: "blue" }
-    stub_jenkins_api(:get, "/job/Test%20Job%20Name/api/json", body: status_color.to_json)
-    subject.status.should == "success"
+  describe "has status" do
+    it "blue => success" do
+      status_color = { color: "blue" }
+      stub_jenkins_api(:get, "/job/Test%20Job%20Name/api/json", body: status_color.to_json)
+      subject.status.should == "success"
+    end
+
+    it "yellow => unstable" do
+      status_color = { color: "yellow" }
+      stub_jenkins_api(:get, "/job/Test%20Job%20Name/api/json", body: status_color.to_json)
+      subject.status.should == "unstable"
+    end
   end
 
-  it "has status yellow => unstable" do
-    status_color = { color: "yellow" }
-    stub_jenkins_api(:get, "/job/Test%20Job%20Name/api/json", body: status_color.to_json)
-    subject.status.should == "unstable"
-  end
 end
