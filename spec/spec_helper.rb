@@ -25,6 +25,7 @@ def valid_config
     "server_port" => "8080",
     "username"    => "valid",
     "password"    => "valid",
+    "debug"       => "true"
   }
 end
 
@@ -38,16 +39,22 @@ def stub_jenkins(options={})
   FakeWeb.clean_registry
   if options.delete(:allow_host) || options.delete("allow_host")
     FakeWeb.allow_net_connect = %r[^#{valid_base_uri}]
+  else
+    FakeWeb.allow_net_connect = false
   end
   # assume the root url will be pinged to test for connection
-  FakeWeb.register_uri(:get, "#{valid_base_uri}/", status: 200)
+  jobs = {
+    "jobs" => [{"name" => "Test Job Name"}, {"name" => "Test"}]
+  }
+  FakeWeb.register_uri(:get, "#{valid_base_uri}/", status: 200, body: jobs.to_json)
+  FakeWeb.register_uri(:get, "#{valid_base_uri}/api/json", status: 200, body: jobs.to_json)
   FakeWeb.register_uri(:get, "#{bad_password_base_uri}/", status: 401)
 end
 
 def stub_jenkins_api(method, path, options={})
   options[:status] ||= 200
   valid_base_uri = "http://valid:valid@valid.host:8080"
-  FakeWeb.register_uri(:get, "#{valid_base_uri}#{path}", options)
+  FakeWeb.register_uri(method, "#{valid_base_uri}#{path}", options)
 end
 
 def spec_asset(filename)
