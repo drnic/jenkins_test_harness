@@ -2,9 +2,9 @@
 
 A library to use to run integration tests on Jenkins jobs to ensure they are behaving as expected. Also allows TDD (test-driven development) to be used for the authoring of Jenkins jobs.
 
-## Usage
-
 [![Build Status](https://travis-ci.org/drnic/jenkins-test-harness.png?branch=master)](https://travis-ci.org/drnic/jenkins-test-harness)
+
+## Usage
 
 An example integration test might look like the sample below. You can use any Ruby testing library; or use the `JobTestHarness` class directly outside of a test suite.
 
