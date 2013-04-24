@@ -20,13 +20,15 @@ require "jenkins_test_harness"
 Dir[File.dirname(__FILE__) + '/support/*'].each{|path| require path}
 
 def stub_jenkins(options={})
-  base_uri = options.delete(:base_uri) || options.delete("base_uri") || "http://127.0.0.1:8080"
+  valid_base_uri = "http://valid:valid@valid.host:8080"
+  bad_password_base_uri = "http://valid:bad@valid.host:8080"
   FakeWeb.clean_registry
   if options.delete(:allow_host) || options.delete("allow_host")
-    FakeWeb.allow_net_connect = %r[^#{base_uri}]
+    FakeWeb.allow_net_connect = %r[^#{valid_base_uri}]
   end
   # assume the root url will be pinged to test for connection
-  FakeWeb.register_uri(:get, "#{base_uri}/", :status => 200)
+  FakeWeb.register_uri(:get, "#{valid_base_uri}/", :status => 200)
+  FakeWeb.register_uri(:get, "#{bad_password_base_uri}/", :status => 401)
 end
 
 def spec_asset(filename)
