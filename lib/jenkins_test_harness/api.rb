@@ -7,10 +7,8 @@ module JenkinsTestHarness
     # actually reference a running Jenkins server, and
     # that the user can be authenticated
     def self.connect(config)
-      if @api
-        raise CannotReconnect, parameters
-      end
       @api = JenkinsApi::Client.new(config)
+      @api.get_root
     end
 
     def self.api

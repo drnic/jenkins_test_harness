@@ -11,4 +11,8 @@ describe JenkinsTestHarness::Api do
   it "attempts to validate Jenkins credentials by connecting" do
     JenkinsTestHarness::Api.connect(valid_credentials)
   end
+  it "provides JenkinsApi::Client for api access" do
+    JenkinsTestHarness::Api.connect(valid_credentials)
+    JenkinsTestHarness::Api.api.should be_is_a(JenkinsApi::Client)
+  end
 end

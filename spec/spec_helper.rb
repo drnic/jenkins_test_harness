@@ -20,9 +20,9 @@ require "jenkins_test_harness"
 Dir[File.dirname(__FILE__) + '/support/*'].each{|path| require path}
 
 def stub_jenkins(options={})
-  base_uri = options.delete(:base_uri) || "http://127.0.0.1:8080"
+  base_uri = options.delete(:base_uri) || options.delete("base_uri") || "http://127.0.0.1:8080"
   FakeWeb.clean_registry
-  if options[:allow_host] # e.g. http://127.0.0.1
+  if options.delete(:allow_host) || options.delete("allow_host")
     FakeWeb.allow_net_connect = %r[^#{base_uri}]
   end
   # assume the root url will be pinged to test for connection
