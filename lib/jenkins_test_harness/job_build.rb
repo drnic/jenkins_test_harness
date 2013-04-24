@@ -9,6 +9,12 @@ module JenkinsTestHarness
       @job_build_number = job_build_number
     end
 
+    def wait_til_complete
+      while status == "running"
+        sleep 1
+      end
+    end
+
     # Current status of build.
     # Returns one of:
     # * "success"
