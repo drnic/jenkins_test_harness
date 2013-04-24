@@ -19,6 +19,19 @@ require "jenkins_test_harness"
 
 Dir[File.dirname(__FILE__) + '/support/*'].each{|path| require path}
 
+def valid_config
+  {
+    "server_ip"   => "valid.host",
+    "server_port" => "8080",
+    "username"    => "valid",
+    "password"    => "valid",
+  }
+end
+
+def bad_credentials
+  valid_config.merge("password" => "bad")
+end
+
 def stub_jenkins(options={})
   valid_base_uri = "http://valid:valid@valid.host:8080"
   bad_password_base_uri = "http://valid:bad@valid.host:8080"
