@@ -1,6 +1,9 @@
 module JenkinsTestHarness
 end
 
+require "ostruct"
+require 'socket'
+
 # API client library
 require "jenkins_api_client"
 
