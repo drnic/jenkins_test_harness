@@ -10,6 +10,27 @@ require "rake/dsl_definition"
 require "rake"
 require "rspec/core/rake_task"
 
+require "jenkins_test_harness"
+
+namespace :jenkins do
+  def server; @server ||= JenkinsTestHarness::Server.new(port: 3333, daemon: true); end
+
+  desc "Start daemonized Jenkins server for running integration tests"
+  task :start do
+    server.start
+  end
+
+  desc "Block until daemonized Jenkins server has full started"
+  task :wait_til_started do
+    server.wait_for_server_start
+  end
+
+  desc "Stop daemonized Jenkins server"
+  task :stop do
+    server.stop
+  end
+end
+    
 if defined?(RSpec)
   namespace :spec do
     desc "Run Unit Tests"
@@ -25,9 +46,9 @@ if defined?(RSpec)
     end
   end
 
-  desc "Run tests"
+  desc "Run tests; assumes jenkins server is running"
   task :spec => %w(spec:unit spec:integration)
 
-  task :default => [:spec]
+  task :default => "spec:unit"
 end
 

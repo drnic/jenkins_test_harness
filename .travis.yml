@@ -1,5 +1,5 @@
 language: ruby
-script: bundle exec rake spec:$SUITE
+script: "bundle exec rake spec:unit && bundle exec rake jenkins:start && bundle exec rake jenkins:wait_til_started && bundle exec rake spec:integration"
 rvm:
   - ruby-1.9.3
 notifications:
@@ -8,12 +8,5 @@ notifications:
       - drnicwilliams@gmail.com
     on_success: change
     on_failure: always
-env:
-  matrix:
-    - SUITE=unit
-    - SUITE=integration
   global:
     - secure: ""
-matrix:
-  allow_failures:
-    - env: SUITE=integration
