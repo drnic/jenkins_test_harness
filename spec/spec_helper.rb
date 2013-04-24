@@ -9,6 +9,7 @@ Bundler.setup(:default, :test)
 $:.unshift(File.expand_path("../../lib", __FILE__))
 
 require "rspec/core"
+require "fakeweb"
 
 # for the #sh helper
 require "rake"
@@ -17,6 +18,16 @@ require "rake/file_utils"
 require "jenkins_test_harness"
 
 Dir[File.dirname(__FILE__) + '/support/*'].each{|path| require path}
+
+def stub_jenkins(options={})
+  base_uri = options.delete(:base_uri) || "http://127.0.0.1:8080"
+  FakeWeb.clean_registry
+  if options[:allow_host] # e.g. http://127.0.0.1
+    FakeWeb.allow_net_connect = %r[^#{base_uri}]
+  end
+  # assume the root url will be pinged to test for connection
+  FakeWeb.register_uri(:get, "#{base_uri}/", :status => 200)
+end
 
 def spec_asset(filename)
   File.expand_path("../assets/#{filename}", __FILE__)
