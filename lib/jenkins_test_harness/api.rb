@@ -7,6 +7,8 @@ module JenkinsTestHarness
     # actually reference a running Jenkins server, and
     # that the user can be authenticated
     def self.connect(config)
+      config["username"] ||= ""
+      config["password"] ||= ""
       @api = JenkinsApi::Client.new(config)
       @api.api_get_request("/", nil, "")
     end
