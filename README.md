@@ -63,6 +63,16 @@ And then execute:
 
     $ bundle
 
+## Development
+
+The `spec` folder contains the unit and integration tests for the library classes. The integration tests actually use a running Jenkins server, import a job to test, and run examples of `JenkinsTestHarness::JobHarness#build` upon that test job.
+
+To run all the tests use:
+
+```
+$ rake
+```
+
 ## Contributing
 
 1. Fork it
