@@ -3,14 +3,13 @@ describe JenkinsTestHarness::JobHarness do
   include JenkinsTestHarness::Api::Helpers
   let(:job_name) { "Test Job" }
   before(:all) do
-    # run jenkins server
-    # wait for it to finish running
+    # run jenkins server & wait for it to finish running
     @server = JenkinsTestHarness::Server.new(port: 3333)
     @server.start
 
     config = {
       "server_ip"   => "localhost",
-      "server_port" => "8080",
+      "server_port" => "3333",
       "debug"       => "true"
     }
     JenkinsTestHarness::Api.connect(config)
@@ -18,8 +17,9 @@ describe JenkinsTestHarness::JobHarness do
     # upload job to test "Test Job"
   end
   after(:all) do
-    # shutdown jenkins server
+    @server.stop
   end
+
   it "runs the job & then the job harness" do
     job = JenkinsTestHarness::Job.new(job_name)
     latest_build_number = api.job.get_current_build_number(job_name)
