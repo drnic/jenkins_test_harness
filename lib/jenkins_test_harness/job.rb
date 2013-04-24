@@ -6,8 +6,9 @@ module JenkinsTestHarness
     class NoJobWithName < StandardError; end
     class JobAlreadyRunning < StandardError; end
 
-    def initialize(job_name)
+    def initialize(job_name, options={})
       @job_name = job_name
+      @quiet_period = options[:quiet_period] || 5
     end
 
     def build(params={})

@@ -18,7 +18,6 @@ describe JenkinsTestHarness::Job do
   it "builds a parameterized job" do
     # expect job to be built with parameters
     stub_jenkins_api(:post, "/job/Test%20Job%20Name/buildWithParameters", :status => 302)
-    subject.build({"param1" => "value1"})
 
     build_job = subject.build("some" => "parameter")
     build_job.should be_instance_of(JenkinsTestHarness::JobBuild)
