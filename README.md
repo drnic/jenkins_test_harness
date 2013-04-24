@@ -10,8 +10,18 @@ In this example, it will invoke/build a parameterized job named "Deploy app to C
 
 ``` ruby
 describe "Jenkins job: Deploy app to Cloud Foundry" do
+  before(:all) do
+    JenkinsTestHarness::Api.connect({
+      "server_ip" => ENV['jenkins_server_ip'],
+      "server_port" => ENV['jenkins_server_port'],
+      "username" => ENV['jenkins_username'],
+      "password" => ENV['jenkins_password'],
+      "quiet_period" => ENV['jenkins_quiet_period'] || 5,
+      "debug" => (ENV['jenkins_api_debug'] == "true")
+    })
+  end
   let(:job_name) { "Deploy app to Cloud Foundry" }
-  subject { JenkinsBuilder::JobTestHarness.new(Jenkins.client_api, job_name) }
+  subject { JenkinsTestHarness::JobHarness.new(job_name) }
 
   let(:cf_env) { CloudFoundry.config.cf_env }
   let(:cf_api) { CloudFoundry.client_api }
@@ -33,15 +43,15 @@ describe "Jenkins job: Deploy app to Cloud Foundry" do
 end
 ```
 
-The core class `JenkinsBuilder::JobTestHarness` uses the Jenkins API to:
+The core class `JenkinsTestHarness::JobHarness` uses the Jenkins API to:
 
-1. clone the target job with a random name (`JenkinsBuilder::JobTestHarness#build`)
+1. clone the target job with a random name (`JenkinsTestHarness::JobHarness#build`)
 2. trigger the cloned job to be built using the parameters provided (which become environment variables when the job is running).
-3. cloned job is destroyed (`JenkinsBuilder::JobTestHarness#cleanup`)
+3. cloned job is destroyed (`JenkinsTestHarness::JobHarness#cleanup`)
 
 This means that the target job ("Deploy app to Cloud Foundry" in the example) itself is not run; rather a temporary clone of the Job is run.
 
-There is also a class `JenkinsBuilder::Job` which performs only step 2 above - it triggers a job to be run (`JenkinsBuilder::Job#build`).
+There is also a class `JenkinsTestHarness::Job` which performs only step 2 above - it triggers a job to be run (`JenkinsTestHarness::Job#build`).
 
 ## Installation
 
