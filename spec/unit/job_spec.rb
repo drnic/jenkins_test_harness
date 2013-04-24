@@ -26,7 +26,7 @@ describe JenkinsTestHarness::Job do
     build_job.job_build_number.should == 1
   end
 
-  it "fails to build a job that doesn't exist" do
+  it "fails with JenkinsTestHarness::Job::NoJobWithName when job doesn't exist" do
     expect {
       JenkinsTestHarness::Job.new("Unknown").build
     }.to raise_error(JenkinsTestHarness::Job::NoJobWithName)
