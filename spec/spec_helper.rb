@@ -40,8 +40,13 @@ def stub_jenkins(options={})
     FakeWeb.allow_net_connect = %r[^#{valid_base_uri}]
   end
   # assume the root url will be pinged to test for connection
-  FakeWeb.register_uri(:get, "#{valid_base_uri}/", :status => 200)
-  FakeWeb.register_uri(:get, "#{bad_password_base_uri}/", :status => 401)
+  FakeWeb.register_uri(:get, "#{valid_base_uri}/", status: 200)
+  FakeWeb.register_uri(:get, "#{bad_password_base_uri}/", status: 401)
+end
+
+def stub_jenkins_api(method, path, options={status: 200})
+  valid_base_uri = "http://valid:valid@valid.host:8080"
+  FakeWeb.register_uri(:get, "#{valid_base_uri}#{path}", options)
 end
 
 def spec_asset(filename)
