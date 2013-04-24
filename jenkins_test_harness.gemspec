@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'jenkins/test/harness/version'
+require 'jenkins_test_harness/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "jenkins-test-harness"
-  spec.version       = Jenkins::Test::Harness::VERSION
+  spec.name          = "jenkins_test_harness"
+  spec.version       = JenkinsTestHarness::VERSION
   spec.authors       = ["Dr Nic Williams"]
   spec.email         = ["drnicwilliams@gmail.com"]
   spec.description   = %q{Run integration tests on Jenkins jobs to ensure they are behaving as expected.}

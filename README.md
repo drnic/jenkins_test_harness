@@ -57,7 +57,7 @@ There is also a class `JenkinsTestHarness::Job` which performs only step 2 above
 
 Add this line to your application's Gemfile:
 
-    gem 'jenkins-test-harness'
+    gem 'jenkins_test_harness'
 
 And then execute:
 
