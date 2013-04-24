@@ -14,5 +14,11 @@ module JenkinsTestHarness
     def self.api
       @api
     end
+
+    module Helpers
+      def api
+        JenkinsTestHarness::Api.api
+      end
+    end
   end
 end

@@ -7,7 +7,7 @@ module JenkinsTestHarness
     end
 
     def build(parameters={})
-      JobBuild.new
+      JobBuild.new(job_name, 1)
     end
   end
 end

@@ -13,6 +13,8 @@ describe JenkinsTestHarness::Job do
 
     build_job = subject.build
     build_job.should be_instance_of(JenkinsTestHarness::JobBuild)
+    build_job.job_name.should == "Test Job Name"
+    build_job.job_build_number.should == 1
   end
 
   it "builds a parameterized job" do
@@ -24,5 +26,7 @@ describe JenkinsTestHarness::Job do
 
     build_job = subject.build
     build_job.should be_instance_of(JenkinsTestHarness::JobBuild)
+    build_job.job_name.should == "Test Job Name"
+    build_job.job_build_number.should == 1
   end
 end

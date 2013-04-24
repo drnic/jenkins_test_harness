@@ -44,7 +44,8 @@ def stub_jenkins(options={})
   FakeWeb.register_uri(:get, "#{bad_password_base_uri}/", status: 401)
 end
 
-def stub_jenkins_api(method, path, options={status: 200})
+def stub_jenkins_api(method, path, options={})
+  options[:status] ||= 200
   valid_base_uri = "http://valid:valid@valid.host:8080"
   FakeWeb.register_uri(:get, "#{valid_base_uri}#{path}", options)
 end
