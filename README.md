@@ -4,6 +4,8 @@ A library to use to run integration tests on Jenkins jobs to ensure they are beh
 
 ## Usage
 
+[![Build Status](https://travis-ci.org/drnic/jenkins-test-harness.png?branch=master)](https://travis-ci.org/drnic/jenkins-test-harness)
+
 An example integration test might look like the sample below. You can use any Ruby testing library; or use the `JobTestHarness` class directly outside of a test suite.
 
 In this example, it will invoke/build a parameterized job named "Deploy app to Cloud Foundry" with a hash of parameters (`subject.build(params)`). It then blocks and waits until that job has completed running (`build_job.wait_til_complete`). Finally, it performs assertions. In this example, it is querying the target Cloud Foundry account that there was 1 application deployed with a name "deploy-app-testname" and that there is 1 instance running.
