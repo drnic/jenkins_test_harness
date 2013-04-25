@@ -10,7 +10,7 @@ module JenkinsTestHarness
       config["username"] ||= ""
       config["password"] ||= ""
       @api = JenkinsApi::Client.new(config)
-      @api.api_get_request("/", nil, "")
+      @api.api_get_request("")
     end
 
     def self.api
