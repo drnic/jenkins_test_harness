@@ -17,6 +17,8 @@ namespace :jenkins do
 
   desc "Start daemonized Jenkins server for running integration tests"
   task :start do
+    # TODO flush the jenkins home folder server.start(flush: true)
+    # TODO set quiet_period to 1 in server & locally
     server.start
   end
 
