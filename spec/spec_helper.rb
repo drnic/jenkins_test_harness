@@ -68,10 +68,6 @@ def stub_jenkins_api(method, path, options={})
   FakeWeb.register_uri(method, "#{valid_base_uri}#{path}", options)
 end
 
-def upload_server_job(job_filename)
-  job_file = File.read(spec_asset("jobs/#{job_filename}"))
-end
-
 def spec_asset(filename)
   File.expand_path("../assets/#{filename}", __FILE__)
 end

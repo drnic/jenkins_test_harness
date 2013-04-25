@@ -2,6 +2,8 @@
 describe JenkinsTestHarness::JobHarness do
   include JenkinsTestHarness::Api::Helpers
   let(:job_name) { "Test Job" }
+  let(:job) { JenkinsTestHarness::Job.new(job_name) }
+  let(:clone_job) { JenkinsTestHarness::Job.new("#{job_name} - Clone") }
 
   before do
     JenkinsTestHarness::Api.connect({
@@ -10,11 +12,11 @@ describe JenkinsTestHarness::JobHarness do
       # "debug"       => "true"
     })
 
-    upload_server_job "test_job.xml" # "Test Job"
+    job.upload(spec_asset("jobs/test_job.xml"))
+    clone_job.destroy
   end
 
   it "runs the job & then the job harness" do
-    job = JenkinsTestHarness::Job.new(job_name)
     latest_build_number = api.job.get_current_build_number(job_name)
     build_job = job.build("bool_parameter" => "false", "string_parameter" => "Hello")
     build_job.wait_til_complete

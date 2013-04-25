@@ -17,9 +17,31 @@ module JenkinsTestHarness
       JobBuild.new(job_name, current_build_number)
     end
 
+    # (re-)create the +Job+ using the config.xml located at +config_path+
+    # If Job already exists, it is deleted; before being created again
+    def upload(config_path)
+      config = File.read(config_path)
+      destroy
+      api.job.create(job_name, config)
+    end
+
+    # If job exists, delete it from Jenkins and return true
+    # Else return false
+    def destroy
+       if job_exists?
+         api.job.delete(job_name)
+         true
+       end
+    end
+
+    # returns true if this +job_name+ exists in Jenkins server
+    def job_exists?
+      api.job.list(job_name).first
+    end
+
     # Search for +job_name+
     def validate_job_name
-      unless api.job.list(job_name).first
+      unless job_exists?
         raise NoJobWithName, job_name
       end
     end
