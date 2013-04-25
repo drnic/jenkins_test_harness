@@ -21,11 +21,12 @@ Dir[File.dirname(__FILE__) + '/support/*'].each{|path| require path}
 
 def valid_config
   {
-    "server_ip"   => "valid.host",
-    "server_port" => "8080",
-    "username"    => "valid",
-    "password"    => "valid",
-    "debug"       => "true"
+    "server_ip"    => "valid.host",
+    "server_port"  => "8080",
+    "username"     => "valid",
+    "password"     => "valid",
+    "quiet_period" => "0",
+    # "debug"      => "true"
   }
 end
 
@@ -45,8 +46,6 @@ def stub_jenkins(options={})
   end
 
   FakeWeb.register_uri(:get, "#{bad_password_base_uri}/api/json", status: 401)
-
-  stub_jenkins_jobs(["Test Job Name", "Test"])
 end
 
 def stub_jenkins_jobs(names)
@@ -54,6 +53,13 @@ def stub_jenkins_jobs(names)
     "jobs" => names.map { |name| {"name" => name} }
   }
   FakeWeb.register_uri(:get, "#{valid_base_jenkins_uri}/api/json", status: 200, body: jobs.to_json)
+  names.each do |name|
+    job_info = {
+      "name" => name,
+      "nextBuildNumber" => 12,
+    }
+    FakeWeb.register_uri(:get, "#{valid_base_jenkins_uri}/job/#{name.gsub(' ', '%20')}/api/json", status: 200, body: job_info.to_json)
+  end
 end
 
 def stub_jenkins_api(method, path, options={})

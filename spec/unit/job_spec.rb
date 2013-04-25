@@ -1,6 +1,7 @@
 describe JenkinsTestHarness::Job do
   before do
     stub_jenkins
+    stub_jenkins_jobs(["Test Job Name"])
     JenkinsTestHarness::Api.connect(valid_config)
   end
   subject { JenkinsTestHarness::Job.new("Test Job Name") }
@@ -12,7 +13,7 @@ describe JenkinsTestHarness::Job do
     build_job = subject.build
     build_job.should be_instance_of(JenkinsTestHarness::JobBuild)
     build_job.job_name.should == "Test Job Name"
-    build_job.job_build_number.should == 1
+    build_job.job_build_number.should == 11
   end
 
   it "builds a parameterized job" do
@@ -22,7 +23,7 @@ describe JenkinsTestHarness::Job do
     build_job = subject.build("some" => "parameter")
     build_job.should be_instance_of(JenkinsTestHarness::JobBuild)
     build_job.job_name.should == "Test Job Name"
-    build_job.job_build_number.should == 1
+    build_job.job_build_number.should == 11
   end
 
   it "fails with JenkinsTestHarness::Job::NoJobWithName when job doesn't exist" do
