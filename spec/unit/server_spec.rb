@@ -9,9 +9,4 @@ describe JenkinsTestHarness::Server do
   it "defaults control port from port" do
     subject.control.should == 3334
   end
-  it "runs jenkins server & stops it" do
-    subject.start # blocks until running
-    subject.should be_running
-    subject.stop
-  end
 end
