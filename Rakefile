@@ -29,7 +29,12 @@ namespace :jenkins do
 
   desc "Stop daemonized Jenkins server"
   task :stop do
-    server.stop
+    begin
+      server.stop
+      puts "Existing Jenkins server now stopped"
+    rescue Exception => e
+      puts "No Jenkins server already running"
+    end
   end
 end
     
