@@ -2,7 +2,7 @@ describe JenkinsTestHarness::JobHarness do
   before do
     stub_jenkins
     stub_jenkins_jobs(["Test Job Name", "Test Job Name - Clone"])
-    JenkinsTestHarness::Api.connect(valid_config.merge("debug" => "true"))
+    JenkinsTestHarness::Api.connect(valid_config)
 
     # expect target job's config to be downloaded
     stub_jenkins_api(:get, "/job/Test%20Job%20Name/config.xml", body: "<job>config</job>")

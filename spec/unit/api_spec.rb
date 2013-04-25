@@ -1,5 +1,8 @@
 describe JenkinsTestHarness::Api do
-  before { stub_jenkins }
+  before do
+    stub_jenkins
+    stub_jenkins_jobs(["Test Job Name"])
+  end
   it "attempts to validate Jenkins credentials by connecting" do
     JenkinsTestHarness::Api.connect(valid_config)
   end

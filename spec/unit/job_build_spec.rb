@@ -1,6 +1,7 @@
 describe JenkinsTestHarness::JobBuild do
   before do
     stub_jenkins
+    stub_jenkins_jobs(["Test"])
     JenkinsTestHarness::Api.connect(valid_config)
   end
   subject { JenkinsTestHarness::JobBuild.new("Test", 10) }
