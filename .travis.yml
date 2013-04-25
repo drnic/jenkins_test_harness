@@ -1,10 +1,5 @@
 language: ruby
 script: "bundle exec rake spec:unit && bundle exec rake jenkins:start && bundle exec rake jenkins:wait_til_started && bundle exec rake spec:integration"
-before_script:
-  - ps ax
-  - bundle exec rake jenkins:stop
-after_script:
-  - ps ax
 rvm:
   - ruby-1.9.3
 notifications:

@@ -80,7 +80,7 @@ module JenkinsTestHarness
             print "o"
             successes += 1
             return true if successes >= max_successes
-          rescue Errno::ECONNREFUSED
+          rescue Exception => e
             print "."
             successes = 0
             if tries == max_tries
