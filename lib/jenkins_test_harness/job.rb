@@ -14,7 +14,8 @@ module JenkinsTestHarness
     def build(params={})
       validate_job_name
       request_build_else_fail(params)
-      JobBuild.new(job_name, 1)
+      wait_for_quiet_period
+      JobBuild.new(job_name, current_build_number)
     end
 
     # Search for +job_name+
@@ -32,6 +33,14 @@ module JenkinsTestHarness
     rescue JenkinsApi::Exceptions::ApiException => e
       puts e.backtrace
       raise
+    end
+
+    def current_build_number
+      api.job.get_current_build_number(job_name)
+    end
+
+    def wait_for_quiet_period
+      sleep(@quiet_period.to_i + 1)
     end
   end
 end

@@ -43,9 +43,8 @@ def stub_jenkins(options={})
   else
     FakeWeb.allow_net_connect = false
   end
-  # assume the root url will be pinged to test for connection
-  FakeWeb.register_uri(:get, "#{valid_base_jenkins_uri}/", status: 200)
-  FakeWeb.register_uri(:get, "#{bad_password_base_uri}/", status: 401)
+
+  FakeWeb.register_uri(:get, "#{bad_password_base_uri}/api/json", status: 401)
 
   stub_jenkins_jobs(["Test Job Name", "Test"])
 end
@@ -56,10 +55,15 @@ def stub_jenkins_jobs(names)
   }
   FakeWeb.register_uri(:get, "#{valid_base_jenkins_uri}/api/json", status: 200, body: jobs.to_json)
 end
+
 def stub_jenkins_api(method, path, options={})
   options[:status] ||= 200
   valid_base_uri = "http://valid:valid@valid.host:8080"
   FakeWeb.register_uri(method, "#{valid_base_uri}#{path}", options)
+end
+
+def upload_server_job(job_filename)
+  job_file = File.read(spec_asset("jobs/#{job_filename}"))
 end
 
 def spec_asset(filename)
