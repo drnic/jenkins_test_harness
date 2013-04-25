@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 # gem "jenkins_api_client", path: "~/Projects/ruby/gems/jenkins_api_client"
+gem "jenkins_api_client", github: "arangamani/jenkins_api_client"
 
 group :test do
   gem "awesome_print"

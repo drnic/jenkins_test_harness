@@ -13,7 +13,7 @@ require "rspec/core/rake_task"
 require "jenkins_test_harness"
 
 namespace :jenkins do
-  def server; @server ||= JenkinsTestHarness::Server.new(port: 3333, daemon: true); end
+  def server; @server ||= JenkinsTestHarness::Server.new(port: 3333, daemon: true, debug: true); end
 
   desc "Start daemonized Jenkins server for running integration tests"
   task :start do
