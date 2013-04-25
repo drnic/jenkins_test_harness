@@ -1,0 +1,143 @@
+{
+  "actions": [{
+    "parameterDefinitions": [{
+      "defaultParameterValue": {
+        "value": false
+      },
+      "description": "",
+      "name": "bool_parameter",
+      "type": "BooleanParameterDefinition"
+    }, {
+      "defaultParameterValue": {
+        "value": "Default"
+      },
+      "description": "",
+      "name": "string_parameter",
+      "type": "StringParameterDefinition"
+    }]
+  }],
+  "description": "",
+  "displayName": "Test Job",
+  "displayNameOrNull": null,
+  "name": "Test Job",
+  "url": "http://localhost:3333/job/Test%20Job/",
+  "buildable": true,
+  "builds": [{
+    "number": 16,
+    "url": "http://localhost:3333/job/Test%20Job/16/"
+  }, {
+    "number": 15,
+    "url": "http://localhost:3333/job/Test%20Job/15/"
+  }, {
+    "number": 14,
+    "url": "http://localhost:3333/job/Test%20Job/14/"
+  }, {
+    "number": 13,
+    "url": "http://localhost:3333/job/Test%20Job/13/"
+  }, {
+    "number": 12,
+    "url": "http://localhost:3333/job/Test%20Job/12/"
+  }, {
+    "number": 11,
+    "url": "http://localhost:3333/job/Test%20Job/11/"
+  }, {
+    "number": 10,
+    "url": "http://localhost:3333/job/Test%20Job/10/"
+  }, {
+    "number": 9,
+    "url": "http://localhost:3333/job/Test%20Job/9/"
+  }, {
+    "number": 8,
+    "url": "http://localhost:3333/job/Test%20Job/8/"
+  }, {
+    "number": 7,
+    "url": "http://localhost:3333/job/Test%20Job/7/"
+  }, {
+    "number": 6,
+    "url": "http://localhost:3333/job/Test%20Job/6/"
+  }, {
+    "number": 5,
+    "url": "http://localhost:3333/job/Test%20Job/5/"
+  }, {
+    "number": 4,
+    "url": "http://localhost:3333/job/Test%20Job/4/"
+  }, {
+    "number": 3,
+    "url": "http://localhost:3333/job/Test%20Job/3/"
+  }, {
+    "number": 2,
+    "url": "http://localhost:3333/job/Test%20Job/2/"
+  }, {
+    "number": 1,
+    "url": "http://localhost:3333/job/Test%20Job/1/"
+  }],
+  "color": "blue",
+  "firstBuild": {
+    "number": 1,
+    "url": "http://localhost:3333/job/Test%20Job/1/"
+  },
+  "healthReport": [{
+    "description": "Build stability: No recent builds failed.",
+    "iconUrl": "health-80plus.png",
+    "score": 100
+  }],
+  "inQueue": true,
+  "keepDependencies": false,
+  "lastBuild": {
+    "number": 16,
+    "url": "http://localhost:3333/job/Test%20Job/16/"
+  },
+  "lastCompletedBuild": {
+    "number": 16,
+    "url": "http://localhost:3333/job/Test%20Job/16/"
+  },
+  "lastFailedBuild": null,
+  "lastStableBuild": {
+    "number": 16,
+    "url": "http://localhost:3333/job/Test%20Job/16/"
+  },
+  "lastSuccessfulBuild": {
+    "number": 16,
+    "url": "http://localhost:3333/job/Test%20Job/16/"
+  },
+  "lastUnstableBuild": null,
+  "lastUnsuccessfulBuild": null,
+  "nextBuildNumber": 17,
+  "property": [{
+    "parameterDefinitions": [{
+      "defaultParameterValue": {
+        "name": "bool_parameter",
+        "value": false
+      },
+      "description": "",
+      "name": "bool_parameter",
+      "type": "BooleanParameterDefinition"
+    }, {
+      "defaultParameterValue": {
+        "name": "string_parameter",
+        "value": "Default"
+      },
+      "description": "",
+      "name": "string_parameter",
+      "type": "StringParameterDefinition"
+    }]
+  }],
+  "queueItem": {
+    "blocked": false,
+    "buildable": false,
+    "id": 18,
+    "inQueueSince": 1366860027522,
+    "params": "\n(BooleanParameterValue) bool_parameter='false'\n(StringParameterValue) string_parameter='Hello'",
+    "stuck": false,
+    "task": {
+      "name": "Test Job",
+      "url": "http://localhost:3333/job/Test%20Job/"
+    },
+    "why": "???",
+    "timestamp": 1366860032522
+  },
+  "concurrentBuild": false,
+  "downstreamProjects": [],
+  "scm": {},
+  "upstreamProjects": []
+}
