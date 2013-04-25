@@ -2,12 +2,12 @@ module JenkinsTestHarness
   class JobHarness
     include JenkinsTestHarness::Api::Helpers
     attr_reader :job_name
-    attr_reader :options
+    attr_reader :target_job
+    attr_reader :clone_job
 
-    def initialize(job_name, options={})
+    def initialize(job_name)
       @job_name = job_name
-      @options = options
-      @target_job = Job.new(job_name, options)
+      @target_job = Job.new(job_name)
     end
 
     def build(params={})
@@ -19,7 +19,7 @@ module JenkinsTestHarness
       temporary_job_name = create_temporary_job_name
       job_xml = api.job.get_config(job_name)
       api.job.create(temporary_job_name, job_xml)
-      Job.new(temporary_job_name, options)
+      Job.new(temporary_job_name)
     rescue JenkinsApi::Exceptions::ApiException => e
       puts e.backtrace
       raise

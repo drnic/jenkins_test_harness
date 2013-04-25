@@ -6,9 +6,8 @@ module JenkinsTestHarness
     class NoJobWithName < StandardError; end
     class JobAlreadyRunning < StandardError; end
 
-    def initialize(job_name, options={})
+    def initialize(job_name)
       @job_name = job_name
-      @quiet_period = options[:quiet_period] || 5
     end
 
     def build(params={})
@@ -39,8 +38,12 @@ module JenkinsTestHarness
       api.job.get_current_build_number(job_name)
     end
 
+    def quiet_period
+      Api.quiet_period
+    end
+
     def wait_for_quiet_period
-      sleep(@quiet_period.to_i + 1)
+      sleep(quiet_period.to_i + 1)
     end
   end
 end

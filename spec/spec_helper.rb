@@ -25,7 +25,7 @@ def valid_config
     "server_port"  => "8080",
     "username"     => "valid",
     "password"     => "valid",
-    "quiet_period" => "0",
+    "quiet_period" => "-1",
     # "debug"      => "true"
   }
 end
